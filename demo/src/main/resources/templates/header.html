@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head-fragment(title,path)">
     <meta charset="UTF-8">
     <title>index</title>
-    <link rel="stylesheet" type="text/css" th:href="@{../static/DataTables/datatables.min.css}"/>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/static/DataTables/datatables.min.css}"/>-->
 
-    <link rel="stylesheet" th:href="@{../static/DataTables/swiper-bundle.min.css}">
-    <link rel="stylesheet" th:href="@{../static/DataTables/iconfont.css}">
-    <link rel="stylesheet" th:href="@{../static/DataTables/common.css}">
-    <link rel="stylesheet" th:href="@{../static/css/header.css}">
-<!--    <link rel="stylesheet" th:href="@{'/mall/styles/'+${path}+'.css'}">-->
-<!--    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>-->
-    <script type="text/javascript" th:src="@{../static/plugins/jquery/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{../static/DataTables/datatables.min.js}"></script>
+<!--    <link rel="stylesheet" th:href="@{/static/DataTables/swiper-bundle.min.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/static/DataTables/iconfont.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/static/DataTables/common.css}">-->
+    <link rel="stylesheet" th:href="@{css/header.css}">
+<!--&lt;!&ndash;    <link rel="stylesheet" th:href="@{'/mall/styles/'+${path}+'.css'}">&ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="stylesheet" th:href="@{/admin/plugins/sweetalert/sweetalert.css}"/>&ndash;&gt;-->
+<!--    <script type="text/javascript" th:src="@{/static/plugins/jquery/jquery.min.js}"></script>-->
+<!--    <script type="text/javascript" th:src="@{/static/DataTables/datatables.min.js}"></script>-->
 </head>
 <body>
 <nav id="nav" th:fragment="nav-fragment">
@@ -34,49 +34,49 @@
         <ul class="fl">
             <li>置物二手商城</li>
             <li>后台管理系统</li></ul>
-        <div class="fr">
-<!--            <th:block th:unless="${session.newBeeMallUser==null}">-->
-                <div class="user">
-                    <ul class="selector">
-                        <li>
-                            <a th:href="@{/personal}">
-                                个人中心
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/orders}">
-                                我的订单
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{/logout}">
-                                退出登录
-                            </a>
-                        </li>
-                    </ul>
-                    <a href="##" class="username">
-<!--                        <th:block th:text="${session.newBeeMallUser.nickName}"></th:block>-->
-                        <i class="iconfont icon-down"></i>
-                    </a>
-                </div>
-                <div class="shopcart">
-                    <a th:href="@{/shop-cart}" style="color: white;"><i class="iconfont icon-cart"></i>
-                        购物车(
-                        <th:block th:text="${session.newBeeMallUser.shopCartItemCount}"></th:block>
-                        )</a>
-                </div>
-            </th:block>
-            <th:block th:if="${session.newBeeMallUser==null}">
-                <ul class="login">
-                    <li><a th:href="@{/login}">登录</a></li>
-                    <li><a th:href="@{/register}">注册</a></li>
-                </ul>
-                <div class="shopcart">
-                    <a href="##" style="color: white;"><i class="iconfont icon-cart"></i>
-                        购物车(0)</a>
-                </div>
-            </th:block>
-        </div>
+<!--&lt;!&ndash;        <div class="fr">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;            <th:block th:unless="${session.newBeeMallUser==null}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="user">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <ul class="selector">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <a th:href="@{/personal}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                个人中心&ndash;&gt;-->
+<!--&lt;!&ndash;                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <a th:href="@{/orders}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                我的订单&ndash;&gt;-->
+<!--&lt;!&ndash;                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <a th:href="@{/logout}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                退出登录&ndash;&gt;-->
+<!--&lt;!&ndash;                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="##" class="username">&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <th:block th:text="${session.newBeeMallUser.nickName}"></th:block>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i class="iconfont icon-down"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="shopcart">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a th:href="@{/shop-cart}" style="color: white;"><i class="iconfont icon-cart"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        购物车(&ndash;&gt;-->
+<!--&lt;!&ndash;                        <th:block th:text="${session.newBeeMallUser.shopCartItemCount}"></th:block>&ndash;&gt;-->
+<!--&lt;!&ndash;                        )</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </th:block>&ndash;&gt;-->
+<!--&lt;!&ndash;            <th:block th:if="${session.newBeeMallUser==null}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <ul class="login">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li><a th:href="@{/login}">登录</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <li><a th:href="@{/register}">注册</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="shopcart">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="##" style="color: white;"><i class="iconfont icon-cart"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        购物车(0)</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </th:block>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
     </div>
 </header>
 </body>
