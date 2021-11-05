@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header::head-fragment('首页','index')">
-
     <script type="text/javascript" th:src="@{js/index.js}"></script>
-
 </head>
 <body>
-<p>hi</p>
 <header th:replace="header::header-fragment"></header>
 <content id="content">
     <nav th:replace="header::nav-fragment"></nav>
-    <table id="example" class="display" style="width:100%">
+    <table id="example" class="display nowrap" style="width:100%">
     <thead>
     <tr>
         <th>Name</th>
