@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PollutionMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.Entity.Pollution">
+<!--        <id column="id" jdbcType="INTEGER" property="id"/>-->
+        <result column="region" jdbcType="VARCHAR" property="region"/>
+        <result column="year" jdbcType="INTEGER" property="year"/>
+        <result column="CS_nw" jdbcType="DOUBLE" property="CS_nw"/>
+        <result column="CS_rc_Bio" jdbcType="DOUBLE" property="CS_rc_Bio"/>
+        <result column="CS_ps_Bio_SUM" jdbcType="DOUBLE" property="CS_ps_Bio_SUM"/>
+        <result column="CS_lf_mw_Bio" jdbcType="DOUBLE" property="CS_lf_mw_Bio"/>
+        <result column="CS_ner_mw_Bio" jdbcType="DOUBLE" property="CS_ner_mw_Bio"/>
+        <result column="CS_lf_iw" jdbcType="DOUBLE" property="CS_lf_iw"/>
+        <result column="CS_ner_iw" jdbcType="DOUBLE" property="CS_ner_iw"/>
+        <result column="AE_er_mw" jdbcType="DOUBLE" property="AE_er_mw"/>
+        <result column="AE_lf_mw_Bio" jdbcType="DOUBLE" property="AE_lf_mw_Bio"/>
+        <result column="AE_er_iw" jdbcType="DOUBLE" property="AE_er_iw"/>
+        <result column="AE_WoodE" jdbcType="DOUBLE" property="AE_WoodE"/>
+        <result column="AE_lf_iw" jdbcType="DOUBLE" property="AE_lf_iw"/>
+        <result column="CE_df" jdbcType="DOUBLE" property="CE_df"/>
+        <result column="CE_wh" jdbcType="DOUBLE" property="CE_wh"/>
+        <result column="CE_nwh" jdbcType="DOUBLE" property="CE_nwh"/>
+        <result column="CE_rpc" jdbcType="DOUBLE" property="CE_rpc"/>
+        <result column="CE_chem_P" jdbcType="DOUBLE" property="CE_chem_P"/>
+        <result column="CE_wttrt_Pulp" jdbcType="DOUBLE" property="CE_wttrt_Pulp"/>
+        <result column="CE_wttrt_Paper" jdbcType="DOUBLE" property="CE_wttrt_Paper"/>
+        <result column="CE_wttrt_ToNature_Pulp" jdbcType="DOUBLE" property="CE_wttrt_ToNature_Pulp"/>
+        <result column="CE_wttrt_ToNature_Paper" jdbcType="DOUBLE" property="CE_wttrt_ToNature_Paper"/>
+        <result column="CE_prd_ExBio" jdbcType="DOUBLE" property="CE_prd_ExBio"/>
+        <result column="CE_prd_Bio" jdbcType="DOUBLE" property="CE_prd_Bio"/>
+        <result column="CE_inc_Bio" jdbcType="DOUBLE" property="CE_inc_Bio"/>
+        <result column="CE_er_mw_Bio" jdbcType="DOUBLE" property="CE_er_mw_Bio"/>
+        <result column="CO2_lf_mw_Bio" jdbcType="DOUBLE" property="CO2_lf_mw_Bio"/>
+        <result column="CE_lf_mw_Bio" jdbcType="DOUBLE" property="CE_lf_mw_Bio"/>
+        <result column="CECP_lf_mw_Bio" jdbcType="DOUBLE" property="CECP_lf_mw_Bio"/>
+        <result column="CESC_lf_mw_Bio" jdbcType="DOUBLE" property="CESC_lf_mw_Bio"/>
+        <result column="CE_er_iw" jdbcType="DOUBLE" property="CE_er_iw"/>
+        <result column="CE_WoodE" jdbcType="DOUBLE" property="CE_WoodE"/>
+        <result column="CO2_lf_iw" jdbcType="DOUBLE" property="CO2_lf_iw"/>
+        <result column="CE_lf_iw" jdbcType="DOUBLE" property="CE_lf_iw"/>
+        <result column="CECP_lf_iw" jdbcType="DOUBLE" property="CECP_lf_iw"/>
+        <result column="CESC_lf_iw" jdbcType="DOUBLE" property="CESC_lf_iw"/>
+    </resultMap>
+    <sql id="Base_Column_List">region,year,CS_nw,CS_rc_Bio,CS_ps_Bio_SUM,CS_lf_mw_Bio,CS_ner_mw_Bio,CS_lf_iw,CS_ner_iw,AE_er_mw,
+AE_lf_mw_Bio,AE_er_iw,AE_WoodE,AE_lf_iw,CE_df,CE_wh,CE_nwh,CE_rpc,CE_chem_P,CE_wttrt_Pulp,CE_wttrt_Paper,
+CE_wttrt_ToNature_Pulp,CE_wttrt_ToNature_Paper,CE_prd_ExBio,CE_prd_Bio,CE_inc_Bio,CE_er_mw_Bio,CO2_lf_mw_Bio,
+CE_lf_mw_Bio,CECP_lf_mw_Bio,CESC_lf_mw_Bio,CE_er_iw,CE_WoodE,CO2_lf_iw,CE_lf_iw,CECP_lf_iw,CESC_lf_iw
+    </sql>
+    <select id="getAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pop
+    </select>
+
+    <select id="getPollutionListByRegion" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+                <include refid="Base_Column_List"/>
+        from pop
+        where region=#{region,jdbcType=VARCHAR}
+    </select>
+    <select id="getPollutionListByYear" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pop
+        where year=#{year,jdbcType=INTEGER}
+    </select>
+
+    <select id="getPollutionList"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pop
+        where year=#{year,jdbcType=INTEGER} and region=#{region,jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

@@ -1,6 +1,8 @@
-package com.example.demo.Entity;
+package com.example.demo.controller.vo;
 
-public class Pollution {
+import java.io.Serializable;
+
+public class PollutionVO implements Serializable {
     private int id;
     private String region;
     private int year;
