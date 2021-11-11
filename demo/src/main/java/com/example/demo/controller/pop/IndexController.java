@@ -6,11 +6,13 @@ import com.example.demo.Entity.Pollution;
 import com.example.demo.service.PollutionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.controller.vo.PollutionVO;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
 import java.util.List;
 
 //@RestController
@@ -21,11 +23,21 @@ public class IndexController {
     @Resource
     private PollutionService pollutionService;
 //    @ResponseBody
-    @GetMapping({"/index", "/", "/index.html"})
+//    @GetMapping({"/index", "/", "/index.html"})
+//    @ResponseBody
+//    public String index(){
+//
+//        return "index";
+//    }
+    @GetMapping({"/initTable"})
     @ResponseBody
-    public String index(){
-
-        return "index";
+    public List<String> initTable(HttpServletRequest request){
+//        JSONObject result = new JSONObject();
+        List<String> columns = new LinkedList<>();
+        columns.add("region");
+        columns.add("year");
+        columns.add("others");
+        return columns;
     }
     @GetMapping("/getAll")
     @ResponseBody
@@ -34,7 +46,12 @@ public class IndexController {
 //        List<Pollution>pollutionList=pollutionService.selectAll();
         String region=request.getParameter("region");
         String year=request.getParameter("year");
-        if (region==null && year==null) {
+        System.out.println("#######################################################################3#######################################################################");
+        System.out.println(region);
+        System.out.println(year);
+        String regionStr = "Select a region...";
+        String yearStr = "Select a year...";
+        if (region==null && year==null || region.equals(regionStr)&&year.equals(yearStr)) {
             return pollutionService.selectAll();
         }else if (year==null){
             return pollutionService.selectByRegion(region);
