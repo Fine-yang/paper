@@ -44,4 +44,19 @@ public class PollutionService {
         pollutionVOS= BeanUtil.copyList(pollutionList,PollutionVO.class);
         return pollutionVOS;
     }
+
+    public List<String> selectRegion(){
+        List<String> regions=pollutionMapper.getRegion();
+        return regions;
+    }
+
+    public List<String> selectYear(){
+        List<Integer> years=pollutionMapper.getYear();
+        List<String> newYears=new ArrayList<>();
+        for (int year:years
+             ) {
+            newYears.add(Integer.toString(year));
+        }
+        return newYears;
+    }
 }

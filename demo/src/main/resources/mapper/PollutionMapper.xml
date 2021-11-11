@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.PollutionMapper">
     <resultMap id="BaseResultMap" type="com.example.demo.Entity.Pollution">
-<!--        <id column="id" jdbcType="INTEGER" property="id"/>-->
+        <!--        <id column="id" jdbcType="INTEGER" property="id"/>-->
         <result column="region" jdbcType="VARCHAR" property="region"/>
         <result column="year" jdbcType="INTEGER" property="year"/>
         <result column="CS_nw" jdbcType="DOUBLE" property="CS_nw"/>
@@ -46,6 +46,8 @@ AE_lf_mw_Bio,AE_er_iw,AE_WoodE,AE_lf_iw,CE_df,CE_wh,CE_nwh,CE_rpc,CE_chem_P,CE_w
 CE_wttrt_ToNature_Pulp,CE_wttrt_ToNature_Paper,CE_prd_ExBio,CE_prd_Bio,CE_inc_Bio,CE_er_mw_Bio,CO2_lf_mw_Bio,
 CE_lf_mw_Bio,CECP_lf_mw_Bio,CESC_lf_mw_Bio,CE_er_iw,CE_WoodE,CO2_lf_iw,CE_lf_iw,CECP_lf_iw,CESC_lf_iw
     </sql>
+    <!--    <sql id="regions">region</sql>-->
+    <!--    <sql id="years">year </sql>-->
     <select id="getAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -54,7 +56,7 @@ CE_lf_mw_Bio,CECP_lf_mw_Bio,CESC_lf_mw_Bio,CE_er_iw,CE_WoodE,CO2_lf_iw,CE_lf_iw,
 
     <select id="getPollutionListByRegion" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
-                <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>
         from pop
         where region=#{region,jdbcType=VARCHAR}
     </select>
@@ -65,11 +67,20 @@ CE_lf_mw_Bio,CECP_lf_mw_Bio,CESC_lf_mw_Bio,CE_er_iw,CE_WoodE,CO2_lf_iw,CE_lf_iw,
         where year=#{year,jdbcType=INTEGER}
     </select>
 
-    <select id="getPollutionList"  resultMap="BaseResultMap">
+    <select id="getPollutionList" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from pop
         where year=#{year,jdbcType=INTEGER} and region=#{region,jdbcType=VARCHAR}
+    </select>
+    <select id="getRegion" resultType="java.lang.String">
+        select distinct region
+        from pop
+    </select>
+
+    <select id="getYear" resultType="java.lang.Integer">
+        select distinct year
+        from pop
     </select>
 
 

@@ -17,4 +17,8 @@ public interface PollutionMapper {
 
 
     List<Pollution> getPollutionList(String region,int year);
+
+    List<String> getRegion();
+
+    List<Integer> getYear();
 }

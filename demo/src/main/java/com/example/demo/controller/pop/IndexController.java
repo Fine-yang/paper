@@ -63,4 +63,15 @@ public class IndexController {
             return pollutionService.selectPollutionList(region,year1);
         }
     }
+    @GetMapping("/getRegion")
+    @ResponseBody
+    public List<String> getRegion(){
+        return pollutionService.selectRegion();
+    }
+    @GetMapping("/getYear")
+    @ResponseBody
+    public List<String> getYear(){
+        return pollutionService.selectYear();
+    }
+
 }
