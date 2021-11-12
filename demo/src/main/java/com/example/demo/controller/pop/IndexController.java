@@ -53,9 +53,9 @@ public class IndexController {
         String yearStr = "Select a year...";
         if (region==null && year==null || region.equals(regionStr)&&year.equals(yearStr)) {
             return pollutionService.selectAll();
-        }else if (year==null){
+        }else if (year==null || year.equals(yearStr)){
             return pollutionService.selectByRegion(region);
-        }else if(region==null){
+        }else if(region==null || region.equals(regionStr)){
             int year1=Integer.parseInt(year);
             return pollutionService.selectByYear(year1);
         }else {

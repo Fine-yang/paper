@@ -2,6 +2,23 @@ $(document).ready(function () {
 
 
     var myColumns = new Array()
+    var regions = new Array()
+    var years = new Array()
+
+
+    $(function () {
+
+        //1.初始化Table
+        var oTable = new TableInit();
+
+
+        oTable.Init();
+
+        //2.初始化Button的点击事件
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+
+    })
     function getColumns() {
         // 加载动态表格
         $.ajax({
@@ -11,21 +28,8 @@ $(document).ready(function () {
             dataType : "json",
             async : true,
             success : function(returnValue) {
-                // 未查询到相应的列，展示默认列
-                console.log("in get columns")
-                console.log((returnValue))
-
-                //没查到列的时候把之前的列再给它
-                // myColumns = $table.bootstrapTable('getOptions').columns;
-
                 myColumns.push({
                     fileid: 'state', checkbox: true, formatter: function (value, row, index) {   //加复选框
-                        // if (index === 2) {
-                        //    return {
-                        //        // disabled: true,
-                        //        checked: true
-                        //    }
-                        // }
                         console.info(value);
                         return value;
                     }
@@ -51,10 +55,6 @@ $(document).ready(function () {
                             "visible": false
                         });}
                 });
-
-                console.log(myColumns);
-                console.log("new mycolumns 71")
-                console.log(myColumns)
                 $('#table').bootstrapTable(
                     'refreshOptions',
                     {
@@ -69,6 +69,42 @@ $(document).ready(function () {
 
     }
 
+    function getRegions(){
+        $.ajax({
+            // url : '/initTable',
+            url: '/getRegion',
+            type : 'get',
+            dataType : "json",
+            async : true,
+            success : function(returnValue) {
+                var arr = returnValue ;
+                $.each(arr, function(i, item) {
+                    var option = "<option>"+item+"</option>"
+                    // console.log(option)
+                    $("#region-select").append(option)
+                });
+            }
+        });
+    }
+
+    function getYears(){
+        $.ajax({
+            // url : '/initTable',
+            url: '/getYear',
+            type : 'get',
+            dataType : "json",
+            async : true,
+            success : function(returnValue) {
+                var arr = returnValue ;
+
+                $.each(arr, function(i, item) {
+                    var option = "<option>"+item+"</option>"
+                    // console.log(option)
+                    $("#year-select").append(option)
+                });
+            }
+        });
+    }
     var TableInit = function () {
         var oTableInit = new Object();
         //初始化Table
@@ -134,19 +170,7 @@ $(document).ready(function () {
         return oInit;
     };
 
-    $(function () {
 
-        //1.初始化Table
-        var oTable = new TableInit();
-
-
-        oTable.Init();
-
-        //2.初始化Button的点击事件
-        var oButtonInit = new ButtonInit();
-        oButtonInit.Init();
-
-    })
 
 
 
@@ -158,6 +182,8 @@ $(document).ready(function () {
     var $table = $('#table');  //可写可不写
 
     getColumns();
+    getRegions();
+    getYears();
     //初始化button的点击事件
     $(function() {
         $("#search-button").click(function () {
