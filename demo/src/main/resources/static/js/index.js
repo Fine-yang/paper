@@ -1,10 +1,5 @@
 $(document).ready(function () {
-
-
     var myColumns = new Array()
-    var regions = new Array()
-    var years = new Array()
-
 
     $(function () {
 
@@ -19,10 +14,10 @@ $(document).ready(function () {
         oButtonInit.Init();
 
     })
+
     function getColumns() {
         // 加载动态表格
         $.ajax({
-            // url : '/initTable',
             url: '/getAll',
             type : 'get',
             dataType : "json",
@@ -105,6 +100,7 @@ $(document).ready(function () {
             }
         });
     }
+
     var TableInit = function () {
         var oTableInit = new Object();
         //初始化Table
@@ -170,20 +166,16 @@ $(document).ready(function () {
         return oInit;
     };
 
-
-
-
-
     $('#table').on('click-row.bs.table', function (e, row, $element) {
         $('.success').removeClass('success');
         $($element).addClass('success');
     });
 
-    var $table = $('#table');  //可写可不写
-
+    var $table = $('#table');
     getColumns();
     getRegions();
     getYears();
+
     //初始化button的点击事件
     $(function() {
         $("#search-button").click(function () {
@@ -201,11 +193,8 @@ $(document).ready(function () {
 
         })
         $("#btn_save").click(function (){
-            console.log("save");
             var result = $table.bootstrapTable('getSelections');
-            console.log(result);
             var cols= $table.bootstrapTable('getVisibleColumns');
-            console.log(cols);
             var colList = new Array();
             let resStr = ``;
             for (var i=0; i<cols.length; i++){
@@ -224,21 +213,16 @@ $(document).ready(function () {
                 }
                 resultData.push(tmp);
             }
-            console.log(resultData);
-            //列标题，逗号隔开，每一个逗号就是隔开一个单元格
 
-            //增加\t为了不让表格显示科学计数法或者其他格式
             for(let i = 0 ; i < resultData.length ; i++ ){
                 for(let item in resultData[i]){
                     resStr+=`${resultData[i][item] + '\t'},`;
                 }
                 resStr+='\n';
             }
-            console.log(resStr);
             let uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(resStr);
             let link = document.createElement("a");
             link.href = uri;
-            //对下载的文件命名
 
             var fileName = $("#savefilename").val();
             console.log(fileName)
