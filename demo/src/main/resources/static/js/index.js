@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var myColumns = new Array()
-
+    var years = new Array()
     $(function () {
 
         //1.初始化Table
@@ -40,14 +40,16 @@ $(document).ready(function () {
                         myColumns.push({
                             "field" : item,
                             "title" : item,
-                            "visible": true
+                            "visible": true,
+                            "sortable": true
                         });
                     }else {
                         console.log(item)
                         myColumns.push({
                             "field" : item,
                             "title" : item,
-                            "visible": false
+                            "visible": false,
+                            "sortable": true
                         });}
                 });
                 $('#table').bootstrapTable(
@@ -58,6 +60,7 @@ $(document).ready(function () {
 
                     }
                 )
+                printChart();
                 return myColumns;
             }
         });
@@ -95,10 +98,86 @@ $(document).ready(function () {
                 $.each(arr, function(i, item) {
                     var option = "<option>"+item+"</option>"
                     // console.log(option)
+                    years.push(item)
                     $("#year-select").append(option)
                 });
             }
         });
+    }
+
+    function printChart(){
+        // console.log("322233333333333333333333333333333333")
+        // var $table = $("#table")
+        var data = $table.bootstrapTable('getData')
+        var cols= $table.bootstrapTable('getVisibleColumns');
+        var colList = new Array();
+        for (var i=0; i<cols.length; i++){
+            var title = cols[i]['title'];
+            // console.log(title);
+            if(title== 'region' || title=="year"){
+                continue;
+            }
+            colList.push(title);
+            // resStr += `${title},`
+        }
+        var years = new Array()
+        var colData = {}
+
+        for(var i = 0; i<data.length;i++){
+            years.push(data[i]['year']);
+        }
+        for (var j =0; j < colList.length; j++){
+            colData[colList[j]] = new Array();
+        }
+        for(var i = 0; i<data.length;i++) {
+            for (var j = 0; j < colList.length; j++) {
+                colData[colList[j]].push(data[i][colList[j]]);
+            }
+        }
+        var seriesArray = new Array()
+        for (var j =0; j < colList.length; j++){
+            seriesArray.push({
+                name: colList[j],
+                type: 'line',
+                stack: 'Total',
+                data: colData[colList[j]]
+            })
+        }
+        var chartDom = document.getElementById('chart');
+        var myChart = echarts.init(chartDom);
+        var option;
+        option = {
+            title: {
+                text: 'Trends'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: colList
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: years
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series:seriesArray
+        };
+        option && myChart.setOption(option,true);
     }
 
     var TableInit = function () {
@@ -136,8 +215,15 @@ $(document).ready(function () {
                 showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
                 cardView: false,                    //是否显示详细视图
                 detailView: false,                   //是否显示父子表
-                columns:  myColumns
-            });
+                columns:  myColumns,
+                onLoadSuccess:function (){
+                    printChart()
+                },
+                onColumnSwitch: function (){
+                   printChart()
+                }
+            })
+
 
         };
         oTableInit.queryParams = function (params) {
@@ -176,8 +262,14 @@ $(document).ready(function () {
     getRegions();
     getYears();
 
+
     //初始化button的点击事件
     $(function() {
+        // $("#chang-bg").click(function (){
+        //     console.log("1111111")
+        //     $("#bg-img").css("background-image","linear-gradient(to top,rgba(255,255,255,1) 10%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.6) 45%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0) 90%,rgba(0,0,0,0.4) 6%), url(\"/imgs/bg2.jpg\")")
+        // })
+
         $("#search-button").click(function () {
             $table.bootstrapTable(
                 "refreshOptions",
@@ -185,9 +277,12 @@ $(document).ready(function () {
                     url : "/getAll", // 获取数据的地址
                     columns : myColumns,
 
+
                 }
             );
+
         })
+
         $('#output').click(function (){
             $("#myModal").modal();
 
@@ -233,6 +328,7 @@ $(document).ready(function () {
             document.body.removeChild(link);
             })
     })
+
 
 });
 
