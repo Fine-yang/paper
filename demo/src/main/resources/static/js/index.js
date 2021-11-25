@@ -29,14 +29,14 @@ $(document).ready(function () {
                         return value;
                     }
                 })
-                console.log(myColumns)
+                // console.log(myColumns)
                 // 异步获取要动态生成的列
                 var arr = Object.keys(returnValue[0]) ;
                 $.each(arr, function(i, item) {
                     if (item =='id'){
-                        console.log("id")
+                        // console.log("id")
                     }else if (i<4){
-                        console.log(item)
+                        // console.log(item)
                         myColumns.push({
                             "field" : item,
                             "title" : item,
@@ -44,7 +44,7 @@ $(document).ready(function () {
                             "sortable": true
                         });
                     }else {
-                        console.log(item)
+                        // console.log(item)
                         myColumns.push({
                             "field" : item,
                             "title" : item,
@@ -289,11 +289,6 @@ $(document).ready(function () {
 
     //初始化button的点击事件
     $(function() {
-        // $("#chang-bg").click(function (){
-        //     console.log("1111111")
-        //     $("#bg-img").css("background-image","linear-gradient(to top,rgba(255,255,255,1) 10%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.6) 45%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0) 90%,rgba(0,0,0,0.4) 6%), url(\"/imgs/bg2.jpg\")")
-        // })
-
         $("#search-button").click(function () {
             $table.bootstrapTable(
                 "refreshOptions",
@@ -318,12 +313,12 @@ $(document).ready(function () {
             let resStr = ``;
             for (var i=0; i<cols.length; i++){
                 var title = cols[i]['title'];
-                console.log(title);
+                // console.log(title);
                 colList.push(title);
                 resStr += `${title},`
             }
             resStr+='\n';
-            console.log(colList);
+            // console.log(colList);
             var resultData = new Array();
             for(var i = 0; i<result.length;i++){
                 var tmp = {};
@@ -344,8 +339,7 @@ $(document).ready(function () {
             link.href = uri;
 
             var fileName = $("#savefilename").val();
-            console.log(fileName)
-            // var fileName = prompt("请输入要保存的文件名： ","造纸数据库")
+            // console.log(fileName)
             link.download =  fileName + ".csv";
             document.body.appendChild(link);
             link.click();
