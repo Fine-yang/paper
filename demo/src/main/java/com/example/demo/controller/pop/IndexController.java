@@ -46,9 +46,9 @@ public class IndexController {
 //        List<Pollution>pollutionList=pollutionService.selectAll();
         String region=request.getParameter("region");
         String year=request.getParameter("year");
-        System.out.println("#######################################################################3#######################################################################");
-        System.out.println(region);
-        System.out.println(year);
+//        System.out.println("#######################################################################3#######################################################################");
+//        System.out.println(region);
+//        System.out.println(year);
         String regionStr = "Select a region...";
         String yearStr = "Select a year...";
         if (region==null && year==null || region.equals(regionStr)&&year.equals(yearStr)) {
