@@ -173,7 +173,31 @@ $(document).ready(function () {
                 data: years
             },
             yAxis: {
-                type: 'value'
+                name: "Data unit(kgCO{sub|2}-eq)",
+                type: 'value',
+                axisLabel: {
+                    formatter: function (value,index){
+                        if (value >1000000000 || value <-1000000000){
+                            return value/1000000000 + "B";
+                        }else if(value >1000000 || value < -1000000){
+                            return value/1000000000 + "M";
+                        }else if (value >1000 || value < -1000){
+                            return value/1000+"K";
+                        }else {
+                            return  value
+                        }
+
+                    }
+                },
+                nameTextStyle:{
+
+                    rich:{
+                        sub: {
+                            verticalAlign: "bottom",
+                            fontSize: 8
+                        }
+                    }
+                }
             },
             series:seriesArray
         };
